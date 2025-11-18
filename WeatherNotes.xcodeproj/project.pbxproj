@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		ED146A7C2ECCAF94005A24DC /* WeatherNotes */ = {
+		ED146A932ECCB997005A24DC /* WeatherNotes */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = WeatherNotes;
 			sourceTree = "<group>";
@@ -32,7 +32,7 @@
 		ED146A712ECCAF94005A24DC = {
 			isa = PBXGroup;
 			children = (
-				ED146A7C2ECCAF94005A24DC /* WeatherNotes */,
+				ED146A932ECCB997005A24DC /* WeatherNotes */,
 				ED146A7B2ECCAF94005A24DC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				ED146A7C2ECCAF94005A24DC /* WeatherNotes */,
+				ED146A932ECCB997005A24DC /* WeatherNotes */,
 			);
 			name = WeatherNotes;
 			packageProductDependencies = (

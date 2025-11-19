@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+// MARK: - WeatherServiceError
 enum WeatherServiceError: Error {
     case invalidURL
     case requestFailed
@@ -16,10 +17,12 @@ enum WeatherServiceError: Error {
     case noWeatherData
 }
 
+// MARK: - WeatherService
 final class WeatherService {
     private let apiKey: String
     private let session: URLSession
     
+    // MARK: - Initialization
     init(session: URLSession, apiKey: String = Bundle.main.object(forInfoDictionaryKey: "OPENWEATHER_API_KEY") as? String ?? "") {
         self.session = session
         self.apiKey = apiKey
@@ -29,6 +32,7 @@ final class WeatherService {
         self.init(session: URLSession.shared)
     }
     
+    // MARK: - Public Methods
     func fetchWeather(for city: String) async throws -> WeatherSummary {
         guard let url = makeURL(for: city) else {
             throw WeatherServiceError.invalidURL
@@ -62,7 +66,7 @@ final class WeatherService {
         }
     }
     
-    // MARK: - Private
+    // MARK: - Private Helpers
     
     private func makeURL(for city: String) -> URL? {
         var components = URLComponents()
@@ -81,6 +85,7 @@ final class WeatherService {
 }
 
 extension WeatherService {
+    // MARK: - Geolocation Fetch
     func fetchWeather(latitude: Double, longitude: Double) async throws -> WeatherSummary {
         guard let url = makeURL(latitude: latitude, longitude: longitude) else {
             throw WeatherServiceError.invalidURL
@@ -111,6 +116,7 @@ extension WeatherService {
         }
     }
     
+    // MARK: - Geolocation URL Builder
     private func makeURL(latitude: Double, longitude: Double) -> URL? {
         var components = URLComponents()
         components.scheme = "https"

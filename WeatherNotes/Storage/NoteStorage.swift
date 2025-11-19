@@ -7,9 +7,11 @@
 
 import Foundation
 
+// MARK: - NotesStorage
 final class NotesStorage {
     private let key = "saved_notes"
     
+    // MARK: - Load
     func loadNotes() -> [Note] {
         guard let data = UserDefaults.standard.data(forKey: key) else {
             return []
@@ -24,6 +26,7 @@ final class NotesStorage {
         }
     }
     
+    // MARK: - Save
     func saveNotes(_ notes: [Note]) {
         do {
             let data = try JSONEncoder().encode(notes)

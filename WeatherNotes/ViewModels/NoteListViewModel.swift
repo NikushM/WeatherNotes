@@ -11,15 +11,18 @@ import SwiftUI
 
 @MainActor
 final class NotesListViewModel: ObservableObject {
+    // MARK: - Properties
     @Published private(set) var notes: [Note] = []
     
     private let storage: NotesStorage
     
+    // MARK: - Initialization
     init(storage: NotesStorage? = nil) {
         self.storage = storage ?? NotesStorage()
         loadNotes()
     }
     
+    // MARK: - Public Methods
     func loadNotes() {
         notes = storage.loadNotes()
     }

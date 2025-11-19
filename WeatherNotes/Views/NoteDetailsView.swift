@@ -1,10 +1,13 @@
 import SwiftUI
 
+// MARK: - NoteDetailsView
+
 struct NoteDetailsView: View {
     let note: Note
     
     @Environment(\.colorScheme) private var colorScheme
     
+    // MARK: - Body
     var body: some View {
         ZStack {
             LinearGradient(
@@ -64,6 +67,7 @@ struct NoteDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
+    // MARK: - Date Formatter
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

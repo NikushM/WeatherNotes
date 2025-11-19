@@ -7,12 +7,15 @@
 
 import SwiftUI
 
+// MARK: - View
 struct AddNoteView: View {
+    // MARK: - Properties
     @StateObject private var viewModel = AddNoteViewModel()
     @StateObject private var locationManager = LocationManager()
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack {

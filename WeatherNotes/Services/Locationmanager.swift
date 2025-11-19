@@ -9,17 +9,20 @@ import CoreLocation
 import Combine
 
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    // MARK: - Properties
     @Published var currentLocation: CLLocation?
     @Published var authorizationStatus: CLAuthorizationStatus?
     
     private let manager = CLLocationManager()
     
+    // MARK: - Initialization
     override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
     
+    // MARK: - Public Methods
     func requestLocation() {
         let status = manager.authorizationStatus
         

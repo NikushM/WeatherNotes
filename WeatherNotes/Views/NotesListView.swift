@@ -1,10 +1,13 @@
 import SwiftUI
 
+// MARK: - NotesListView
 struct NotesListView: View {
+    // MARK: - Properties
     @StateObject private var viewModel = NotesListViewModel()
     @State private var isPresentingAddNote = false
     @Environment(\.colorScheme) private var colorScheme
     
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack {
@@ -95,6 +98,7 @@ struct NotesListView: View {
         }
     }
     
+    // MARK: - Helpers
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

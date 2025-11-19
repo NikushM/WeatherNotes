@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Note Model
 struct Note: Identifiable, Codable {
     let id: UUID
     var text: String
@@ -14,6 +15,7 @@ struct Note: Identifiable, Codable {
     var weather: WeatherSummary
 }
 
+// MARK: - WeatherSummary
 struct WeatherSummary: Codable {
     let temperature: Double
     let conditionDescription: String
@@ -21,6 +23,7 @@ struct WeatherSummary: Codable {
     let cityName: String
 }
 
+// MARK: - WeatherSummary System Icon Mapping
 extension WeatherSummary {
     var systemIconName: String {
         switch iconCode.prefix(2) {

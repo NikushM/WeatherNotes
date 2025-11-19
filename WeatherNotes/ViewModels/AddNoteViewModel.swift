@@ -11,6 +11,7 @@ import CoreLocation
 
 @MainActor
 final class AddNoteViewModel: ObservableObject {
+    // MARK: - Properties
     @Published var text: String = ""
     @Published var isSaving: Bool = false
     @Published var errorMessage: String?
@@ -18,6 +19,7 @@ final class AddNoteViewModel: ObservableObject {
     private let weatherService: WeatherService
     private let storage: NotesStorage
     
+    // MARK: - Initialization
     init(
         weatherService: WeatherService? = nil,
         storage: NotesStorage? = nil
@@ -26,6 +28,7 @@ final class AddNoteViewModel: ObservableObject {
         self.storage = storage ?? NotesStorage()
     }
     
+    // MARK: - Save Note
     func saveNote(location: CLLocation?) async {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {

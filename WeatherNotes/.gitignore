@@ -1,0 +1,19 @@
+# Xcode project user data
+xcuserdata/
+*.xcuserdatad/
+*.xcscmblueprint
+
+# Build output
+DerivedData/
+build/
+
+# Swift Package Manager
+.build/
+
+# macOS
+.DS_Store
+
+# Misc
+*.moved-aside
+*.swp
+*.lock

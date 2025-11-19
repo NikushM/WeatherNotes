@@ -14,7 +14,9 @@
 		EDBD93A22ECE037F00F66BE0 /* Exceptions for "WeatherNotes" folder in "WeatherNotes" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				.gitignore,
 				Info.plist,
+				README.md,
 			);
 			target = ED146A792ECCAF94005A24DC /* WeatherNotes */;
 		};

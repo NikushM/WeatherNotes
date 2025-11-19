@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 @MainActor
 final class AddNoteViewModel: ObservableObject {
@@ -25,18 +26,27 @@ final class AddNoteViewModel: ObservableObject {
         self.storage = storage ?? NotesStorage()
     }
     
-    func saveNote() async {
+    func saveNote(location: CLLocation?) async {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
             errorMessage = "Please enter some text for the note."
             return
         }
         
-        isSaving = true
+        isSaving = true 
         errorMessage = nil
         
         do {
-            let weather = try await weatherService.fetchWeather(for: "Kyiv")
+            let weather: WeatherSummary
+            
+            if let location {
+                weather = try await weatherService.fetchWeather(
+                    latitude: location.coordinate.latitude,
+                    longitude: location.coordinate.longitude
+                )
+            } else {
+                weather = try await weatherService.fetchWeather(for: "Kyiv")
+            }
             
             let newNote = Note(
                 id: UUID(),
@@ -49,9 +59,21 @@ final class AddNoteViewModel: ObservableObject {
             notes.insert(newNote, at: 0)
             storage.saveNotes(notes)
             text = ""
-            
+        } catch let error as WeatherServiceError {
+            switch error {
+            case .invalidURL:
+                errorMessage = "Internal error: invalid URL."
+            case .requestFailed:
+                errorMessage = "Network request failed. Please check your connection."
+            case .invalidResponse:
+                errorMessage = "Server error. Please try again later."
+            case .decodingFailed:
+                errorMessage = "Failed to parse weather data."
+            case .noWeatherData:
+                errorMessage = "No weather data available."
+            }
         } catch {
-            errorMessage = "Failed to save note: \(error.localizedDescription)"
+            errorMessage = "Unexpected error: \(error.localizedDescription)"
         }
         
         isSaving = false

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 @MainActor
 final class NotesListViewModel: ObservableObject {
@@ -21,5 +22,10 @@ final class NotesListViewModel: ObservableObject {
     
     func loadNotes() {
         notes = storage.loadNotes()
+    }
+    
+    func deleteNotes(at offsets: IndexSet) {
+        notes.remove(atOffsets: offsets)
+        storage.saveNotes(notes)
     }
 }

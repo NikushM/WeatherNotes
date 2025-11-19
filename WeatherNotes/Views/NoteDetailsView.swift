@@ -1,46 +1,64 @@
-//
-//  NoteDetailsView.swift
-//  WeatherNotes
-//
-//  Created by Nikush on 19.11.2025.
-//
-
 import SwiftUI
 
 struct NoteDetailsView: View {
     let note: Note
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text(note.text)
-                    .font(.title2)
-                    .bold()
-                
-                Text(formatDate(note.createdAt))
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                
-                Divider()
-                
-                HStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(note.weather.cityName)
-                            .font(.headline)
+        ZStack {
+            LinearGradient(
+                colors: [
+                    Color.blue.opacity(colorScheme == .dark ? 0.6 : 0.3),
+                    Color.cyan.opacity(colorScheme == .dark ? 0.4 : 0.1)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(note.text)
+                        .font(.title2)
+                        .bold()
+                    
+                    Text(formatDate(note.createdAt))
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    
+                    Divider()
+                    
+                    HStack(spacing: 16) {
+                        Image(systemName: note.weather.systemIconName)
+                            .symbolRenderingMode(.multicolor)
+                            .font(.system(size: 32))
+                            .padding(12)
+                            .background(
+                                Circle()
+                                    .fill(Color(.secondarySystemBackground)
+                                        .opacity(colorScheme == .dark ? 0.9 : 0.8))
+                            )
                         
-                        Text(note.weather.conditionDescription)
-                            .font(.subheadline)
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(note.weather.cityName)
+                                .font(.headline)
+                            
+                            Text(note.weather.conditionDescription)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        Text("\(Int(note.weather.temperature))°C")
+                            .font(.system(size: 40, weight: .bold))
                     }
                     
                     Spacer()
-                    
-                    Text("\(Int(note.weather.temperature))°C")
-                        .font(.system(size: 40, weight: .bold))
                 }
-                
-                Spacer()
+                .padding()
             }
-            .padding()
         }
         .navigationTitle("Details")
         .navigationBarTitleDisplayMode(.inline)
